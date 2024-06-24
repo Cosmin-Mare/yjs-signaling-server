@@ -58,6 +58,7 @@ const send = (conn, message) => {
  * @param {any} conn
  */
 const onconnection = conn => {
+  console.log("connection")
   metrics.increment('signaling.connection');
 
   /**
@@ -120,6 +121,7 @@ const onconnection = conn => {
           })
           break
         case 'publish':
+          console.log("publish")
           metrics.increment('signaling.publish');
           if (message.topic) {
             const receivers = topics.get(message.topic)
