@@ -3,6 +3,7 @@
 import { WebSocketServer } from 'ws'
 import http from 'http'
 import * as map from 'lib0/map'
+import { StatsD } from 'node-statsd'
 
 const wsReadyStateConnecting = 0
 const wsReadyStateOpen = 1
