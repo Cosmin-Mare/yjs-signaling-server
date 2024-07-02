@@ -148,9 +148,11 @@ server.on('upgrade', (request, socket, head) => {
   /**
    * @param {any} ws
    */
-  console.log("request", request)
-  console.log("head", head)
   const handleAuth = ws => {
+    console.log("request", request)
+    console.log("head", head)
+    console.log("socket", socket)
+    console.log("ws", ws)
     wss.emit('connection', ws, request)
   }
   wss.handleUpgrade(request, socket, head, handleAuth)
