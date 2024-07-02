@@ -13,17 +13,17 @@ const wsReadyStateClosed = 3 // eslint-disable-line
 const pingTimeout = 30000
 
 const environment = process.env.NODE_ENV;
-  const graphite = process.env.GRAPHITE_HOST;
+const graphite = process.env.GRAPHITE_HOST;
 
-  if (graphite === null) throw new Error("Graphite host is not configured");
+if (graphite === null) throw new Error("Graphite host is not configured");
 
-  const options = {
-    host: graphite,
-    port: 8125,
-    prefix: `${environment}.sprig.`,
-  };
+const options = {
+  host: graphite,
+  port: 8125,
+  prefix: `${environment}.sprig.`,
+};
 
-  const metrics = new StatsD(options);
+const metrics = new StatsD(options);
 
 const port = process.env.PORT || 4444
 const wss = new WebSocketServer({ noServer: true })
@@ -59,7 +59,7 @@ const send = (conn, message) => {
  * @param {any} conn
  */
 const onconnection = conn => {
-  console.log("connection")
+  console.log("conn", conn)
   metrics.increment('signaling.connection');
 
   /**
@@ -104,6 +104,7 @@ const onconnection = conn => {
       switch (message.type) {
         case 'subscribe':
           /** @type {Array<string>} */ (message.topics || []).forEach(topicName => {
+            console.log("topic", topicName)
             if (typeof topicName === 'string') {
               // add conn to topic
               const topic = map.setIfUndefined(topics, topicName, () => new Set())
